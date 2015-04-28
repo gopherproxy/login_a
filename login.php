@@ -18,11 +18,18 @@ if (isset($_POST['submit'])) {
     if (!$result->num_rows == 1) {
         echo "<p>Invalid username/password!</p>";
     } else {
-        echo "<p>Logged in successfully</p>";
+        //echo "<p>Logged in successfully</p>";
         
         ######################
         # do more stuff here #
         ######################
+		
+		// start a PHP session
+		session_start();
+		// start og session logged_in
+		$_SESSION['logged_in'] = true;
+		// redirecting to specific page
+		header("Location: restricted.php");
                 
     }
 }
