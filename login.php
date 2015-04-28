@@ -7,8 +7,8 @@ if (isset($_POST['submit'])) {
         // exit the current script
         die($connection->connect_error);
     }
- 
-    $username = $_POST['username'];
+ 	// adding basic security (mysqli_real_escape_string) to avoid SQL injection (' or 0=0 #)
+    $username = mysqli_real_escape_string($mysqli, $_POST['username']);
     $password = hash("sha256", $_POST['password']);
 
     $sql = "SELECT * FROM users WHERE username = '$username' AND password = '$password' LIMIT 1";

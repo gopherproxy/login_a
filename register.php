@@ -13,12 +13,12 @@ if(isset($_POST['submit'])){
 	}
 // prepare data for insertion into database
 // collect form values
-$username = $_POST['username'];
+$username = mysqli_real_escape_string($connection, $_POST['username']);
 // adding basic password encryption
 $password = hash("sha256", $_POST['password']);
-$first_name = $_POST['first_name'];
-$last_name = $_POST['last_name'];
-$email = $_POST['email'];
+$first_name = mysqli_real_escape_string($connection, $_POST['first_name']);
+$last_name = mysqli_real_escape_string($connection, $_POST['last_name']);
+$email = mysqli_real_escape_string($connection, $_POST['email']);
 # check if username and email exist, else insert
 	$exists = 0;
 	$check = $connection->query("SELECT username from users WHERE username = '$username' LIMIT 1");
