@@ -14,7 +14,8 @@ if(isset($_POST['submit'])){
 // prepare data for insertion into database
 // collect form values
 $username = $_POST['username'];
-$password = $_POST['password'];
+// adding basic password encryption
+$password = hash("sha256", $_POST['password']);
 $first_name = $_POST['first_name'];
 $last_name = $_POST['last_name'];
 $email = $_POST['email'];
@@ -42,7 +43,12 @@ $email = $_POST['email'];
 		$insert = "INSERT INTO users (id, username, password, first_name, last_name, email) 
 				VALUES (NULL, '$username', '$password', '$first_name', '$last_name', '$email')";
 		// execute SQL query		
- 		$connection->query($insert);		
+ 		
+		if($connection->query($insert)){
+			echo "New user registered!";
+		}else{
+			echo "Ooops - something went wrong...";
+		}
 	}
 
 // end if isset	
